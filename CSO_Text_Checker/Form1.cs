@@ -41,7 +41,7 @@ namespace CSO_Text_Checker
 
                     for (int j = start; j < end; j++)
                     {
-                        if (string.IsNullOrWhiteSpace(lines[j]) || lines[j].StartsWith("{") || lines[j].StartsWith("}") || lines[j].StartsWith("//")|| lines[j].StartsWith("/") || lines[j].Contains("/") || lines[j].Contains("//") || lines[j].Contains("Tokens") || lines[j].Contains("}") || lines[j].Contains("{") || lines[j].Contains("Language"))
+                        if (string.IsNullOrWhiteSpace(lines[j]) || lines[j].StartsWith("{") || lines[j].StartsWith("}") || lines[j].StartsWith("//")|| lines[j].StartsWith("/") || lines[j].Contains("/") || lines[j].Contains("//") || lines[j].Contains("Tokens") || lines[j].Contains("}") || lines[j].Contains("{") || lines[j].Contains("Language") || lines[j].Contains("lang"))
                         {
                             continue;
                         }
