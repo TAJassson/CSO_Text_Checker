@@ -1,2 +1,1 @@
-
-# 0 guildline, make it by yourself
+# 0 guideline, make it by yourself
