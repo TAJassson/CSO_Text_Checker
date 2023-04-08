@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -185,6 +186,14 @@ namespace CSO_Text_Checker
         {
 
         }
-                
+
+        private void MD(object sender, MouseEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/TAJassson",
+                UseShellExecute = true
+            });
+        }
     }
 }

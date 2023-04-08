@@ -31,6 +31,7 @@
             this.DisplayFileName = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.rtbErrors = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DisplayFileName
@@ -55,21 +56,32 @@
             // 
             this.rtbErrors.Location = new System.Drawing.Point(12, 41);
             this.rtbErrors.Name = "rtbErrors";
-            this.rtbErrors.Size = new System.Drawing.Size(977, 881);
+            this.rtbErrors.Size = new System.Drawing.Size(977, 870);
             this.rtbErrors.TabIndex = 2;
             this.rtbErrors.Text = "";
             this.rtbErrors.TextChanged += new System.EventHandler(this.rtbErrors_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 914);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(383, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "This Tools develop by NeverLess - Jason Despa, this app is 0 guideline. :)";
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MD);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1001, 934);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.rtbErrors);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.DisplayFileName);
             this.Name = "Form1";
-            this.Text = "CSO Language file checker";
+            this.Text = "CSO Lang \\ Server Config file checker";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -80,5 +92,6 @@
         private System.Windows.Forms.TextBox DisplayFileName;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox rtbErrors;
+        private System.Windows.Forms.Label label1;
     }
 }
