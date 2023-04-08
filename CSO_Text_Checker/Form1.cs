@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CSO_Text_Checker
@@ -29,55 +30,140 @@ namespace CSO_Text_Checker
             }
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string[] lines = File.ReadAllLines(openFileDialog.FileName);
-                int batchSize = 100;
-                int numBatches = (int)Math.Ceiling((double)lines.Length / batchSize);
-                int errorCount = 0;
-
-                for (int i = 0; i < numBatches; i++)
+                if (openFileDialog.FileName == "cso_na_en.txt")
                 {
-                    int start = i * batchSize;
-                    int end = Math.Min(start + batchSize, lines.Length);
+                    string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                    int batchSize = 100;
+                    int numBatches = (int)Math.Ceiling((double)lines.Length / batchSize);
+                    int errorCount = 0;
 
-                    for (int j = start; j < end; j++)
+                    for (int i = 0; i < numBatches; i++)
                     {
-                        if (string.IsNullOrWhiteSpace(lines[j]) || lines[j].StartsWith("{") || lines[j].StartsWith("}") || lines[j].StartsWith("//")|| lines[j].StartsWith("/") || lines[j].Contains("/") || lines[j].Contains("//") || lines[j].Contains("Tokens") || lines[j].Contains("}") || lines[j].Contains("{") || lines[j].Contains("Language") || lines[j].Contains("lang"))
-                        {
-                            continue;
-                        }
+                        int start = i * batchSize;
+                        int end = Math.Min(start + batchSize, lines.Length);
 
-                        int quoteCount = 0;
-                        for (int k = 0; k < lines[j].Length; k++)
+                        for (int j = start; j < end; j++)
                         {
-                            if (lines[j][k] == '"')
+                            if (string.IsNullOrWhiteSpace(lines[j]) || lines[j].StartsWith("{") || lines[j].StartsWith("}") || lines[j].StartsWith("//") || lines[j].StartsWith("/") || lines[j].Contains("/") || lines[j].Contains("//") || lines[j].Contains("Tokens") || lines[j].Contains("}") || lines[j].Contains("{") || lines[j].Contains("Language") || lines[j].Contains("lang"))
                             {
-                                quoteCount++;
-                                if (quoteCount == 4)
-                                {
-                                    break;
-                                }
+                                continue;
                             }
-                        }
-                        if (quoteCount != 4)
-                        {
-                            rtbErrors.AppendText(string.Format("Line {0}: {1}{2}", j + 1, lines[j], Environment.NewLine));
+
+                            int quoteCount = 0;
                             for (int k = 0; k < lines[j].Length; k++)
                             {
                                 if (lines[j][k] == '"')
                                 {
-                                }
-                                else
-                                {
+                                    quoteCount++;
+                                    if (quoteCount == 4)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
-                            rtbErrors.AppendText(Environment.NewLine);
-                            errorCount++;
+                            if (quoteCount != 4)
+                            {
+                                rtbErrors.AppendText(string.Format("Line {0}: {1}{2}", j + 1, lines[j], Environment.NewLine));
+                                for (int k = 0; k < lines[j].Length; k++)
+                                {
+                                    if (lines[j][k] == '"')
+                                    {
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                                rtbErrors.AppendText(Environment.NewLine);
+                                errorCount++;
+                            }
                         }
                     }
-                }
 
-                MessageBox.Show(string.Format("Finished processing {0} lines with {1} errors.", lines.Length, errorCount));
+                    MessageBox.Show(string.Format("Finished processing {0} lines with {1} errors.", lines.Length, errorCount));
+                }
+                else
+                {
+                        string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                        int batchSize = 100;
+                        int numBatches = (int)Math.Ceiling((double)lines.Length / batchSize);
+                        int errorCount = 0;
+
+                        for (int i = 0; i < numBatches; i++)
+                        {
+                            int start = i * batchSize;
+                            int end = Math.Min(start + batchSize, lines.Length);
+
+                            for (int j = start; j < end; j++)
+                            {
+                                if (string.IsNullOrWhiteSpace(lines[j]) || lines[j].StartsWith("{") || lines[j].StartsWith("}") || lines[j].StartsWith("//") || lines[j].StartsWith("/") || lines[j].Contains("/") || lines[j].Contains("//") || lines[j].Contains("Tokens") || lines[j].Contains("}") || lines[j].Contains("{") || lines[j].Contains("Language") || lines[j].Contains("lang"))
+                                {
+                                    continue;
+                                }
+
+                                int quoteCount = 0;
+                                for (int k = 0; k < lines[j].Length; k++)
+                                {
+                                    if (lines[j][k] == '"')
+                                    {
+                                        quoteCount++;
+                                        if (quoteCount == 2 && quoteCount == 4 )
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            if (quoteCount != 2 && quoteCount != 4)
+                            {
+                                    rtbErrors.AppendText(string.Format("Line {0}: {1}{2}", j + 1, lines[j], Environment.NewLine));
+                                    for (int k = 0; k < lines[j].Length; k++)
+                                    {
+                                        if (lines[j][k] == '"')
+                                        {
+                                        }
+                                        else
+                                        {
+                                        }
+                                    }
+                                    rtbErrors.AppendText(Environment.NewLine);
+                                    errorCount++;
+                                }
+                            }
+                        }
+                        MessageBox.Show(string.Format("Finished processing {0} lines with {1} errors.", lines.Length, errorCount));
+                    }
+
             }
+        }
+
+        private bool IsValidLine(string line)
+        {
+            if (string.IsNullOrWhiteSpace(line) ||
+                line.StartsWith("{") ||
+                line.StartsWith("}") ||
+                line.StartsWith("//") ||
+                line.StartsWith("/") ||
+                line.Contains("/") ||
+                line.Contains("//") ||
+                line.Contains("Tokens") ||
+                line.Contains("}") ||
+                line.Contains("{") ||
+                line.Contains("Language") ||
+                line.Contains("lang"))
+            {
+                return false;
+            }
+            return true;
+        }
+        private int GetLineIndex(string[] allLines, string line)
+        {
+            for (int i = 0; i < allLines.Length; i++)
+            {
+                if (allLines[i] == line)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         private void DisplayFileName_TextChanged(object sender, EventArgs e)
@@ -89,5 +175,16 @@ namespace CSO_Text_Checker
         {
 
         }
+
+        private void txtfile()
+        {
+
+        }
+
+        private void sconfig()
+        {
+
+        }
+                
     }
 }
